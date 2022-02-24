@@ -1,11 +1,15 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
+import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.Scanner;
+
 
 public class controller {
     private model model;
     private view view;
+    private PrintWriter PW;
+    private Scanner scanner;
 
     public static void main(String args[]) {
         controller c = new controller();
@@ -17,7 +21,8 @@ public class controller {
 
         Action execute = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                model.saveInput(view.getTextField1().getText());
+                model.saveInput(view.getTextField1().getText(),view.getTextField2().getText());
+                view.getTextArea1().setText(model.getList());
             }
         };
 
@@ -32,5 +37,43 @@ public class controller {
         view.getTextField1().getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "Activate");
         view.getTextField1().getActionMap().put("Activate", execute);
 
+        view.Savebutton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser FileChoser = new JFileChooser("C:\\Code\\loggbok");
+                FileChoser.showSaveDialog(null);
+                File outputfile = FileChoser.getSelectedFile();
+
+                try {
+                    PW = new PrintWriter(String.valueOf(outputfile));
+                    PW.println(model.getList());
+                    PW.close();
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+        });
+        view.Loadbutton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser FileChoser = new JFileChooser("C:\\Code\\loggbok");
+                FileChoser.showOpenDialog(null);
+                File outputfile = FileChoser.getSelectedFile();
+
+                try {
+                    scanner = new Scanner(new File(String.valueOf(outputfile)));
+                    while (scanner.hasNext()){
+                        String NextLine = scanner.nextLine();
+                        model.saveInput(NextLine,view.getTextField2().getText());
+                    }
+                    view.getTextArea1().setText(model.getList());
+
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+        });
     }
 }

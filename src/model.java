@@ -1,40 +1,39 @@
-import java.io.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class model{
     private String message;
-    private String author;
-    private Date date;
     private int currentnumber = 0;
     private ArrayList<String> messageList = new ArrayList<>();
+
     public model(){
     }
 
-    public void saveInput(String input){
-        messageList.add(currentnumber,input);
-        System.out.println(messageList.get(currentnumber));
+    public void saveInput(String input,String authorInput){
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = myDateObj.format(myFormatObj);
 
+        String inputauthor = input + "    " + authorInput + "   " + formattedDate;
+        messageList.add(currentnumber,inputauthor);
         currentnumber++;
     }
-    public void setAuthor(String author) {
-        this.author = author;
+    public String getList(){
+        String ListString = "";
+        for(int i = 0;i < messageList.toArray().length;i++){
+            ListString += messageList.get(i) + "\n";
+        }
+        return ListString;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setMessageList(ArrayList<String> messageList) {
+        this.messageList = messageList;
     }
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public String getAuthor() {
-        return author;
     }
 
     public String getMessage() {

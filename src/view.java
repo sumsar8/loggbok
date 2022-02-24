@@ -6,6 +6,7 @@ public class view {
     private JButton button1;
     private JButton button2;
     private JPanel panel;
+    private JTextField textField2;
 
     public JPanel getPanel() {
         return panel;
@@ -15,7 +16,7 @@ public class view {
         return textArea1;
     }
 
-    public JButton Enterbutton() {
+    public JButton Savebutton() {
         return button1;
     }
 
@@ -25,6 +26,10 @@ public class view {
 
     public JTextField getTextField1() {
         return textField1;
+    }
+
+    public JTextField getTextField2() {
+        return textField2;
     }
 }
 
