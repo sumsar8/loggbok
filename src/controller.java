@@ -40,7 +40,7 @@ public class controller {
         view.Savebutton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser FileChoser = new JFileChooser("C:\\Code\\loggbok");
+                JFileChooser FileChoser = new JFileChooser("");
                 FileChoser.showSaveDialog(null);
                 File outputfile = FileChoser.getSelectedFile();
 
@@ -57,7 +57,7 @@ public class controller {
         view.Loadbutton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser FileChoser = new JFileChooser("C:\\Code\\loggbok");
+                JFileChooser FileChoser = new JFileChooser("");
                 FileChoser.showOpenDialog(null);
                 File outputfile = FileChoser.getSelectedFile();
 
